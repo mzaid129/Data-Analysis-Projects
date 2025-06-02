@@ -235,7 +235,7 @@ email_df['Dentist Name'] = email_df['Dentist Name'].str.strip()
 email_lookup = dict(zip(email_df['Dentist Name'], email_df['Email Address']))
 
 # Initialize email server
-outlook = win32.Dispatch('email server')
+your_emailServer = win32.Dispatch('email server') # eg. gmail, outlook
 
 # Loop through the generated reports
 for filename in os.listdir(output_dir):
@@ -252,7 +252,7 @@ for filename in os.listdir(output_dir):
             print(f"📧 Email found for {dentist_name}: {email_address}. Sending...")
 
             try:
-                mail = outlook.CreateItem(0)
+                mail = your_emailServer.CreateItem(0)
                 mail.To = email_address
                 mail.Subject = f"Sales Report - {dentist_name} ({report_date.strftime('%d-%m-%Y')})"
                 mail.Body = f"your email body"
